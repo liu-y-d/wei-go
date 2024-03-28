@@ -1,0 +1,9 @@
+2024-03-26 15:31:13	INFO	common/logger.go:108	wei/common.InitLogger	初始化zap日志完成!
+2024-03-26 15:33:30	INFO	common/logger.go:108	wei/common.InitLogger	初始化zap日志完成!
+2024-03-26 15:33:30	INFO	common/database.go:59	wei/common.InitMysql	初始化mysql数据库完成! dsn: root:******@tcp(localhost:3306)/wei?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms
+2024-03-26 15:33:30	INFO	common/casbin.go:22	wei/common.InitCasbinEnforcer	初始化Casbin完成!
+2024-03-26 15:33:30	INFO	common/validator.go:26	wei/common.InitValidate	初始化validator.v10数据校验器完成
+2024-03-26 15:33:31	INFO	routes/routes.go:54	wei/routes.InitRoutes	初始化路由完成！
+2024-03-26 15:33:31	INFO	wei/main.go:62	main.main	Server is running at localhost:8088/api
+2024-03-26 15:43:24	INFO	wei/main.go:72	main.main	Shutting down server...
+2024-03-26 15:43:24	INFO	wei/main.go:82	main.main	Server exiting!

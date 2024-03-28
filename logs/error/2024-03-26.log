@@ -1,0 +1,1 @@
+2024-03-26 15:31:13	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: Error 1049 (42000): Unknown database 'wei'

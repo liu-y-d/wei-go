@@ -1,0 +1,1 @@
+2024-03-27 16:44:57	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: Error 1193 (HY000): Unknown system variable 'useUnicode'

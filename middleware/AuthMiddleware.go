@@ -127,9 +127,12 @@ func wxLogin(c *gin.Context) (interface{}, error) {
 		return nil, err
 	}
 	// 将用户以json格式写入, payloadFunc/authorizator会使用到
-	return map[string]interface{}{
+
+	m := map[string]interface{}{
 		"user": util.Struct2Json(user),
-	}, nil
+	}
+	c.Set("WechatOpenid", user.Openid)
+	return m, nil
 }
 
 // 用户登录校验成功处理
@@ -154,10 +157,14 @@ func unauthorized(c *gin.Context, code int, message string) {
 
 // 登录成功后的响应
 func loginResponse(c *gin.Context, code int, token string, expires time.Time) {
+
+	wechatOpenid, _ := c.Get("WechatOpenid")
+
 	response.Response(c, code, code,
 		gin.H{
-			"token":   token,
-			"expires": expires.Format("2006-01-02 15:04:05"),
+			"token":    token,
+			"expires":  expires.Format("2006-01-02 15:04:05"),
+			"playerId": wechatOpenid,
 		},
 		"登录成功")
 }

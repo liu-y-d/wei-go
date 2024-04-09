@@ -72,5 +72,5 @@ rate-limit:
   # 桶容量
   capacity: 200
 wechat:
-  appid: xxx
-  secret: xxx
+  appid: wx7ecb2ed37b52a334
+  secret: 84ce44871ac51d2f2fb27ed05a1beef0

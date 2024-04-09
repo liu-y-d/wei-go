@@ -29,7 +29,7 @@ type IUserRepository interface {
 	//UpdateUser(user *model.User) error                              // 更新用户
 	//BatchDeleteUserByIds(ids []uint) error                          // 批量删除
 	//
-	//GetCurrentUser(c *gin.Context) (model.User, error)                  // 获取当前登录用户信息
+	GetCurrentUser(c *gin.Context) (model.User, error) // 获取当前登录用户信息
 	//GetCurrentUserMinRoleSort(c *gin.Context) (uint, model.User, error) // 获取当前用户角色排序最小值（最高等级角色）以及当前用户信息
 	//GetUserMinRoleSortsByIds(ids []uint) ([]int, error)                 // 根据用户ID获取用户角色排序最小值
 	//
@@ -209,7 +209,7 @@ func (ur UserRepository) GetCurrentUser(c *gin.Context) (model.User, error) {
 func (ur UserRepository) GetUserById(id uint) (model.User, error) {
 	fmt.Println("GetUserById---")
 	var user model.User
-	err := common.DB.Where("id = ?", id).Preload("Roles").First(&user).Error
+	err := common.DB.Where("id = ?", id).First(&user).Error
 	return user, err
 }
 

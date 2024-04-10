@@ -35,7 +35,7 @@ mysql:
   # 数据库名
   database: wei
   # 主机地址
-  host: localhost
+  host: 81.70.172.142
   # 端口
   port: 3306
   # 连接字符串参数

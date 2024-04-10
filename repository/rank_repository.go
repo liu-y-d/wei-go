@@ -17,27 +17,27 @@ type RankRepository struct {
 
 func (r RankRepository) GetWorldRank() []dto.RankDto {
 
-	const sql = `WITH RankedPlayerLevels AS (
-  SELECT
-    gr.userid,
-    gr.game_level ,
-    gr.created_at,
-    u.avatar,
-    u.openid,
-    u.username,
-    ROW_NUMBER() OVER (PARTITION BY gr.userid ORDER BY gr.game_level DESC, gr.created_at) AS rn
+	const sql = `SELECT t1.openid as player_id,
+       t1.game_level,
+       t1.created_at,
+       t1.username,
+       t1.avatar
+FROM (
+  SELECT gr.userid,
+         gr.game_level,
+         gr.created_at,
+         u.avatar,
+         u.openid,
+         u.username,
+         @rn := IF(@prev_userid = gr.userid, @rn + 1, 1) AS rn,
+         @prev_userid := gr.userid
   FROM game_records gr
   JOIN users u ON u.id = gr.userid
-  where gr.status = 1
-)
-SELECT
-  openid player_id,
-  game_level,
-  created_at,
-  username,
-  avatar
-FROM RankedPlayerLevels
-WHERE rn = 1;`
+  JOIN (SELECT @rn := 0, @prev_userid := NULL) var_init
+  WHERE gr.status = 1
+  ORDER BY gr.userid, gr.game_level DESC, gr.created_at DESC
+) t1
+WHERE t1.rn = 1;`
 	dtos := []dto.RankDto{}
 	err := common.DB.Raw(sql).Scan(&dtos).Error
 	if err != nil {

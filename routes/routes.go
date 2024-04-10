@@ -31,7 +31,7 @@ func InitRoutes() *gin.Engine {
 	r.Use(middleware.CORSMiddleware())
 
 	// 启用操作日志中间件
-	r.Use(middleware.OperationLogMiddleware())
+	//r.Use(middleware.OperationLogMiddleware())
 
 	// 初始化JWT认证中间件
 	//authMiddleware, err := middleware.InitAuth()

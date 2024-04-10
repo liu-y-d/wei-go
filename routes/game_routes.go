@@ -10,6 +10,7 @@ import (
 // InitGameRoutes 注册游戏路由
 func InitGameCoreRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) gin.IRoutes {
 	gameController := controller.NewGameController()
+	rankController := controller.NewRankController()
 	router := r.Group("/game")
 	// 开启jwt认证中间件
 	router.Use(authMiddleware.MiddlewareFunc())
@@ -18,6 +19,8 @@ func InitGameCoreRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware
 	{
 		router.GET("/currentGameLevel", gameController.GetCurrentUserGameLevel)
 		router.POST("/gameOver", gameController.GameOver)
+		router.GET("/worldRank", rankController.WorldRank)
+		router.GET("/test", rankController.Test)
 	}
 	return r
 }

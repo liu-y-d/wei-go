@@ -207,7 +207,6 @@ func (ur UserRepository) GetCurrentUser(c *gin.Context) (model.User, error) {
 
 // 获取单个用户
 func (ur UserRepository) GetUserById(id uint) (model.User, error) {
-	fmt.Println("GetUserById---")
 	var user model.User
 	err := common.DB.Where("id = ?", id).First(&user).Error
 	return user, err

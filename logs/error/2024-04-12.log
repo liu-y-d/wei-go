@@ -1,0 +1,4 @@
+2024-04-12 14:16:45	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: Error 1049 (42000): Unknown database 'wei'
+2024-04-12 14:17:45	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: Error 1049 (42000): Unknown database 'wei'
+2024-04-12 15:04:11	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: dial tcp 81.70.172.142:3661: connect: operation timed out
+2024-04-12 15:05:22	PANIC	common/database.go:47	wei/common.InitMysql	初始化mysql数据库异常: dial tcp 81.70.172.142:3661: connect: connection refused

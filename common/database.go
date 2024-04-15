@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
 	"wei/config"
 	"wei/model"
 )
@@ -34,6 +37,15 @@ func InitMysql() {
 		config.Conf.Mysql.Collation,
 		config.Conf.Mysql.Query,
 	)
+
+	newLogger := logger.New(
+		// 定义输出日志的 writer，默认为 os.Stdout
+		log.New(os.Stdout, "\r\n", log.LstdFlags),
+		// 设置日志级别
+		logger.Config{
+			LogLevel: logger.Info,
+		},
+	)
 	//Log.Info("数据库连接DSN: ", showDsn)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		// 禁用外键(指定外键时不会在mysql创建真实的外键约束)
@@ -42,7 +54,8 @@ func InitMysql() {
 		//NamingStrategy: schema.NamingStrategy{
 		//	TablePrefix: config.Conf.Mysql.TablePrefix + "_",
 		//},
-	})
+
+	}, &gorm.Config{Logger: newLogger})
 	if err != nil {
 		Log.Panicf("初始化mysql数据库异常: %v", err)
 		panic(fmt.Errorf("初始化mysql数据库异常: %v", err))
@@ -67,5 +80,6 @@ func dbAutoMigrate() {
 		//&model.Menu{},
 		&model.GameRecord{},
 		&model.OperationLog{},
+		&model.Leaf{},
 	)
 }

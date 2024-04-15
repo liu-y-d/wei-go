@@ -11,6 +11,7 @@ import (
 func InitGameCoreRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) gin.IRoutes {
 	gameController := controller.NewGameController()
 	rankController := controller.NewRankController()
+	leafController := controller.NewLeafController()
 	router := r.Group("/game")
 	// 开启jwt认证中间件
 	router.Use(authMiddleware.MiddlewareFunc())
@@ -20,7 +21,9 @@ func InitGameCoreRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware
 		router.GET("/currentGameLevel", gameController.GetCurrentUserGameLevel)
 		router.POST("/gameOver", gameController.GameOver)
 		router.GET("/worldRank", rankController.WorldRank)
-		router.GET("/test", rankController.Test)
+		router.GET("/getLeaf", leafController.GetLeaf)
+		router.GET("/consumeLeaf", leafController.ConsumeLeaf)
+		router.GET("/infinityLeaf", leafController.InfinityLeaf)
 	}
 	return r
 }

@@ -1,0 +1,47 @@
+2024-04-13 13:26:16	INFO	common/logger.go:108	wei/common.InitLogger	初始化zap日志完成!
+2024-04-13 13:26:17	INFO	common/database.go:72	wei/common.InitMysql	初始化mysql数据库完成! dsn: root:******@tcp(81.70.172.142:3661)/wei?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms
+2024-04-13 13:26:17	INFO	common/casbin.go:22	wei/common.InitCasbinEnforcer	初始化Casbin完成!
+2024-04-13 13:26:17	INFO	common/validator.go:26	wei/common.InitValidate	初始化validator.v10数据校验器完成
+2024-04-13 13:26:17	INFO	routes/routes.go:56	wei/routes.InitRoutes	初始化路由完成！
+2024-04-13 13:26:17	INFO	wei/main.go:62	main.main	Server is running at localhost:8088/api
+2024-04-13 18:09:45	INFO	wei/main.go:72	main.main	Shutting down server...
+2024-04-13 18:09:45	INFO	wei/main.go:82	main.main	Server exiting!
+2024-04-13 18:09:51	INFO	common/logger.go:108	wei/common.InitLogger	初始化zap日志完成!
+2024-04-13 18:09:52	INFO	common/database.go:72	wei/common.InitMysql	初始化mysql数据库完成! dsn: root:******@tcp(81.70.172.142:3661)/wei?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms
+2024-04-13 18:09:52	INFO	common/casbin.go:22	wei/common.InitCasbinEnforcer	初始化Casbin完成!
+2024-04-13 18:09:52	INFO	common/validator.go:26	wei/common.InitValidate	初始化validator.v10数据校验器完成
+2024-04-13 18:09:52	INFO	routes/routes.go:56	wei/routes.InitRoutes	初始化路由完成！
+2024-04-13 18:09:52	INFO	wei/main.go:62	main.main	Server is running at localhost:8088/api
+2024-04-13 18:10:30	INFO	wei/main.go:72	main.main	Shutting down server...
+2024-04-13 18:10:30	INFO	wei/main.go:82	main.main	Server exiting!
+2024-04-13 18:10:33	INFO	common/logger.go:108	wei/common.InitLogger	初始化zap日志完成!
+2024-04-13 18:10:33	INFO	common/database.go:72	wei/common.InitMysql	初始化mysql数据库完成! dsn: root:******@tcp(81.70.172.142:3661)/wei?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms
+2024-04-13 18:10:34	INFO	common/casbin.go:22	wei/common.InitCasbinEnforcer	初始化Casbin完成!
+2024-04-13 18:10:34	INFO	common/validator.go:26	wei/common.InitValidate	初始化validator.v10数据校验器完成
+2024-04-13 18:10:34	INFO	routes/routes.go:56	wei/routes.InitRoutes	初始化路由完成！
+2024-04-13 18:10:34	INFO	wei/main.go:62	main.main	Server is running at localhost:8088/api
+2024-04-14 09:51:41	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:51:57	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:51:58	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:01	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:02	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:04	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:05	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:07	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:08	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:09	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:39	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:40	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:41	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:52:42	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:08	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:19	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:20	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:21	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:22	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:22	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:23	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:25	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-14 09:53:27	DEBUG	middleware/AuthMiddleware.go:154	wei/middleware.unauthorized	JWT认证失败, 错误码: 401, 错误信息: Token is expired
+2024-04-15 10:33:59	INFO	wei/main.go:72	main.main	Shutting down server...
+2024-04-15 10:33:59	INFO	wei/main.go:82	main.main	Server exiting!

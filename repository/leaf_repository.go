@@ -38,8 +38,9 @@ func (l LeafRepository) InfinityLeaf(user *model.User) bool {
 
 	// 计算今晚12点的时间点
 	tonight := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, now.Location())
+	yenight := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 
-	if err != nil || (leaf.Infinity != nil && leaf.Infinity.Before(tonight)) {
+	if err != nil || (leaf.Infinity != nil && leaf.Infinity.Before(tonight) && leaf.Infinity.After(yenight)) {
 		return false
 	}
 	err = common.DB.Model(&leaf).Where("userid", user.Model.ID).Update("infinity", time.Now()).Error
@@ -53,7 +54,7 @@ func (l LeafRepository) ConsumeLeaf(user *model.User) bool {
 
 	var leaf model.Leaf
 	err := common.DB.Where("userid", user.Model.ID).First(&leaf).Error
-	if err != nil {
+	if err != nil || leaf.Remaining-5 < 0 {
 		return false
 	}
 	err = common.DB.Model(&leaf).Where("userid", user.Model.ID).Update("remaining", leaf.Remaining-5).Error

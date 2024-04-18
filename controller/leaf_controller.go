@@ -23,13 +23,6 @@ type LeafController struct {
 func (l LeafController) InfinityLeaf(c *gin.Context) {
 	user, _ := l.UserRepository.GetCurrentUser(c)
 	status := l.LeafRepository.InfinityLeaf(&user)
-	if status {
-		// 创建一个定时任务 Goroutine
-		go runScheduledTask(c, func() {
-			user, _ := l.UserRepository.GetCurrentUser(c)
-			l.LeafRepository.CleanInfinityLeaf(&user)
-		})
-	}
 	response.Success(c, gin.H{"status": status}, "获得无限叶子成功")
 }
 

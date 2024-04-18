@@ -13,9 +13,16 @@ type ILeafRepository interface {
 
 	InfinityLeaf(user *model.User) bool
 	CleanInfinityLeaf(user *model.User) bool
+
+	RecoveryLeaf()
 }
 
 type LeafRepository struct {
+}
+
+func (l LeafRepository) RecoveryLeaf() {
+	const sql = `update leafs set remaining = remaining + 5 where remaining + 5 <= 100;`
+	common.DB.Exec(sql)
 }
 
 func (l LeafRepository) CleanInfinityLeaf(user *model.User) bool {

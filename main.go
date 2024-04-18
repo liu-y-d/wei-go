@@ -11,6 +11,7 @@ import (
 	"wei/common"
 	"wei/config"
 	"wei/routes"
+	"wei/task"
 )
 
 func main() {
@@ -40,6 +41,7 @@ func main() {
 	//	go logRepository.SaveOperationLogChannel(middleware.OperationLogChan)
 	//}
 
+	task.NewTaskRegister().RegisterLeafRecover()
 	// 注册所有路由
 	r := routes.InitRoutes()
 

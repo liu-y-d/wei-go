@@ -15,10 +15,44 @@ import (
 type IGameController interface {
 	GetCurrentUserGameLevel(c *gin.Context)
 	GameOver(c *gin.Context)
+	GetGamePropsConfig(c *gin.Context)
+	GetUserAllPropsGuide(c *gin.Context)
+	SaveUserPropsGuide(c *gin.Context)
 }
 type GameController struct {
 	UserRepository repository.IUserRepository
 	GameRepository repository.IGameRepository
+}
+
+func (g GameController) GetUserAllPropsGuide(c *gin.Context) {
+	user, _ := g.UserRepository.GetCurrentUser(c)
+	guide := g.GameRepository.GetUserAllPropsGuide(&user)
+
+	response.Success(c, gin.H{"guides": guide}, "获取用户道具引导")
+}
+
+func (g GameController) SaveUserPropsGuide(c *gin.Context) {
+	var req vo.SavePropsGuideRequest
+
+	// 参数绑定
+	if err := c.ShouldBind(&req); err != nil {
+		response.Fail(c, nil, err.Error())
+		return
+	}
+	// 参数校验
+	if err := common.Validate.Struct(&req); err != nil {
+		errStr := err.(validator.ValidationErrors)[0].Translate(common.Trans)
+		response.Fail(c, nil, errStr)
+		return
+	}
+	user, _ := g.UserRepository.GetCurrentUser(c)
+	guide := g.GameRepository.SaveUserPropsGuide(&user, req.PropsId, req.ShowTip)
+	response.Success(c, gin.H{"status": guide}, "保存用户道具引导")
+}
+
+func (g GameController) GetGamePropsConfig(c *gin.Context) {
+	propsConfig := g.GameRepository.GetGamePropsConfig()
+	response.Success(c, gin.H{"props": propsConfig}, "获取道具配置")
 }
 
 func (g GameController) GameOver(c *gin.Context) {

@@ -2,6 +2,8 @@
 package repository
 
 import (
+	"github.com/patrickmn/go-cache"
+	"time"
 	"wei/common"
 	"wei/dto"
 )
@@ -12,38 +14,40 @@ type IRankRepository interface {
 	GetWorldRank() []dto.RankDto
 }
 
+var worldRankCache = cache.New(24*time.Hour, 24*time.Hour)
+
 type RankRepository struct {
 }
 
 func (r RankRepository) GetWorldRank() []dto.RankDto {
+	var worldRank []dto.RankDto
+	// 先获取缓存
+	cacheRank, found := worldRankCache.Get("worldRank")
 
-	const sql = `SELECT t1.openid as player_id,
-       t1.game_level,
-       t1.created_at,
-       t1.username,
-       t1.avatar
-FROM (
-  SELECT gr.userid,
-         gr.game_level,
-         gr.created_at,
-         u.avatar,
-         u.openid,
-         u.username,
-         @rn := IF(@prev_userid = gr.userid, @rn + 1, 1) AS rn,
-         @prev_userid := gr.userid
-  FROM game_records gr
-  JOIN users u ON u.id = gr.userid
-  JOIN (SELECT @rn := 0, @prev_userid := NULL) var_init
-  WHERE gr.status = 1
-  ORDER BY gr.userid, gr.game_level DESC, gr.created_at DESC
-) t1
-WHERE t1.rn = 1;`
-	dtos := []dto.RankDto{}
-	err := common.DB.Raw(sql).Scan(&dtos).Error
-	if err != nil {
-		return nil
+	if found {
+		worldRank = cacheRank.([]dto.RankDto)
+	} else {
+		const sql = `select u.openid as player_id,
+       game_records.game_level,
+       u.created_at,
+       u.username,
+       u.avatar
+from game_records
+         join (select userid, MAX(game_level) as game_level from game_records where status = 1 group by userid) as max
+on max.userid = game_records.userid and max.game_level = game_records.game_level
+JOIN users u ON game_records.userid = u.id
+order by game_level desc ,created_at limit 100;
+`
+		dtos := []dto.RankDto{}
+		err := common.DB.Raw(sql).Scan(&dtos).Error
+		if err != nil {
+			return nil
+		}
+		worldRankCache.Set("worldRank", dtos, cache.DefaultExpiration)
+		worldRank = dtos
 	}
-	return dtos
+
+	return worldRank
 }
 
 func NewRankRepository() IRankRepository {

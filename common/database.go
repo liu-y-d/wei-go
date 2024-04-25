@@ -81,5 +81,7 @@ func dbAutoMigrate() {
 		&model.GameRecord{},
 		&model.OperationLog{},
 		&model.Leaf{},
+		&model.GamePropsConfig{},
+		&model.GamePropsGuide{},
 	)
 }

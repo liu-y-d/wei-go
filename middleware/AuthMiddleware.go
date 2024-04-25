@@ -163,7 +163,7 @@ func loginResponse(c *gin.Context, code int, token string, expires time.Time) {
 	response.Response(c, code, code,
 		gin.H{
 			"token":    token,
-			"expires":  expires.Format("2006-01-02 15:04:05"),
+			"expires":  expires.Unix(),
 			"playerId": wechatOpenid,
 		},
 		"登录成功")
@@ -179,7 +179,7 @@ func refreshResponse(c *gin.Context, code int, token string, expires time.Time) 
 	response.Response(c, code, code,
 		gin.H{
 			"token":   token,
-			"expires": expires,
+			"expires": expires.Unix(),
 		},
 		"刷新token成功")
 }

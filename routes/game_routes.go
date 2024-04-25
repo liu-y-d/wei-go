@@ -24,6 +24,9 @@ func InitGameCoreRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware
 		router.GET("/getLeaf", leafController.GetLeaf)
 		router.GET("/consumeLeaf", leafController.ConsumeLeaf)
 		router.GET("/infinityLeaf", leafController.InfinityLeaf)
+		router.GET("/propsConfig", gameController.GetGamePropsConfig)
+		router.GET("/getAllPropsGuide", gameController.GetUserAllPropsGuide)
+		router.POST("/savePropsGuide", gameController.SaveUserPropsGuide)
 	}
 	return r
 }

@@ -14,7 +14,7 @@ type IRankRepository interface {
 	GetWorldRank() []dto.RankDto
 }
 
-var worldRankCache = cache.New(24*time.Hour, 24*time.Hour)
+var WorldRankCache = cache.New(24*time.Hour, 24*time.Hour)
 
 type RankRepository struct {
 }
@@ -22,20 +22,20 @@ type RankRepository struct {
 func (r RankRepository) GetWorldRank() []dto.RankDto {
 	var worldRank []dto.RankDto
 	// 先获取缓存
-	cacheRank, found := worldRankCache.Get("worldRank")
+	cacheRank, found := WorldRankCache.Get("worldRank")
 
 	if found {
 		worldRank = cacheRank.([]dto.RankDto)
 	} else {
-		const sql = `select u.openid as player_id,
+		const sql = ` select u.openid as player_id,
        game_records.game_level,
        u.created_at,
        u.username,
        u.avatar
 from game_records
          join (select userid, MAX(game_level) as game_level from game_records where status = 1 group by userid) as max
-on max.userid = game_records.userid and max.game_level = game_records.game_level
-JOIN users u ON game_records.userid = u.id
+on max.userid = game_records.userid and max.game_level = game_records.game_level and status =1
+left JOIN users u ON game_records.userid = u.id
 order by game_level desc ,created_at limit 100;
 `
 		dtos := []dto.RankDto{}
@@ -43,7 +43,7 @@ order by game_level desc ,created_at limit 100;
 		if err != nil {
 			return nil
 		}
-		worldRankCache.Set("worldRank", dtos, cache.DefaultExpiration)
+		WorldRankCache.Set("worldRank", dtos, cache.DefaultExpiration)
 		worldRank = dtos
 	}
 

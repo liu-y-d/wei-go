@@ -18,7 +18,7 @@ type IGameRepository interface {
 	// GetUserAllPropsGuide 获取用户所有道具引导配置
 	GetUserAllPropsGuide(user *model.User) []model.GamePropsGuide
 	// SaveUserPropsGuide 保存用户道具引导配置
-	SaveUserPropsGuide(user *model.User, propsId uint, show uint) bool
+	SaveUserPropsGuide(user *model.User, propsId *uint, show uint) bool
 }
 
 type GameRepository struct {
@@ -34,11 +34,11 @@ func (g GameRepository) GetUserAllPropsGuide(user *model.User) []model.GameProps
 	}
 }
 
-func (g GameRepository) SaveUserPropsGuide(user *model.User, propsId uint, show uint) bool {
+func (g GameRepository) SaveUserPropsGuide(user *model.User, propsId *uint, show uint) bool {
 
 	record := model.GamePropsGuide{
 		Userid:  user.Model.ID,
-		PropsId: propsId,
+		PropsId: *propsId,
 		Show:    show,
 	}
 	err := common.DB.Create(&record).Error
@@ -70,7 +70,7 @@ func (g GameRepository) GetCurrentGameLevel(user *model.User) uint {
 func (g GameRepository) GameOver(user *model.User, request *vo.GameOverRequest) bool {
 	gameRecord := model.GameRecord{}
 
-	err := common.DB.Model(&gameRecord).Select("game_level").Where("status = 1").Order("game_level DESC").Limit(1).Find(&gameRecord).Error
+	err := common.DB.Model(&gameRecord).Select("game_level").Where("status = ? and userid = ?", 1, user.Model.ID).Order("game_level DESC").Limit(1).Find(&gameRecord).Error
 	level := gameRecord.GameLevel
 	if err != nil {
 		level = 0

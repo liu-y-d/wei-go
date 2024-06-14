@@ -12,7 +12,6 @@ type CommonGameRequest struct {
 }
 
 type SavePropsGuideRequest struct {
-	PropsId uint `json:"propsId" form:"propsId" validate:"required"`
-	// 1 win 2 lose
-	ShowTip uint `json:"showTip" form:"showTip" validate:"required,oneof=0 1"`
+	PropsId *uint `json:"propsId" form:"propsId" validate:"required"`
+	ShowTip uint  `json:"showTip" form:"showTip" validate:"required,oneof=0 1"`
 }

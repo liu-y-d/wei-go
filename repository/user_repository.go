@@ -65,9 +65,10 @@ func (ur UserRepository) WxLogin(wxRequest *vo.WxLoginRequest) (*model.User, err
 	err := common.DB.
 		Where("openid = ?", wxRes.Openid).
 		First(&firstUser).Error
+	rawData := vo.WxRawData{}
+	util.Json2Struct(wxRequest.RawData, &rawData)
+
 	if err != nil {
-		rawData := vo.WxRawData{}
-		util.Json2Struct(wxRequest.RawData, &rawData)
 		firstUser = model.User{
 			Openid:   wxRes.Openid,
 			Username: rawData.Nickname,
@@ -81,6 +82,14 @@ func (ur UserRepository) WxLogin(wxRequest *vo.WxLoginRequest) (*model.User, err
 			return nil, errors.New("用户注册失败")
 		}
 		//return nil, errors.New("用户不存在")
+	} else {
+		firstUser.Avatar = rawData.AvatarUrl
+		firstUser.Username = rawData.Nickname
+		firstUser.Nickname = &rawData.Nickname
+		err := ur.UpdateUser(&firstUser)
+		if err != nil {
+			return nil, errors.New("用户信息更新失败")
+		}
 	}
 
 	// 判断用户的状态
@@ -279,21 +288,17 @@ func (ur UserRepository) CreateUser(user *model.User) error {
 }
 
 // 更新用户
-//func (ur UserRepository) UpdateUser(user *model.User) error {
-//	err := common.DB.Model(user).Updates(user).Error
-//	if err != nil {
-//		return err
-//	}
-//	err = common.DB.Model(user).Association("Roles").Replace(user.Roles)
-//
-//	//err := common.DB.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user).Error
-//
-//	// 如果更新成功就更新用户信息缓存
-//	if err == nil {
-//		userInfoCache.Set(user.Username, *user, cache.DefaultExpiration)
-//	}
-//	return err
-//}
+func (ur UserRepository) UpdateUser(user *model.User) error {
+	err := common.DB.Model(user).Updates(user).Error
+	if err != nil {
+		return err
+	}
+	// 如果更新成功就更新用户信息缓存
+	if err == nil {
+		userInfoCache.Set(user.Username, *user, cache.DefaultExpiration)
+	}
+	return err
+}
 
 // 批量删除
 func (ur UserRepository) BatchDeleteUserByIds(ids []uint) error {

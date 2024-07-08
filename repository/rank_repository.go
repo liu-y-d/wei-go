@@ -36,7 +36,7 @@ from game_records
          join (select userid, MAX(game_level) as game_level from game_records where status = 1 group by userid) as max
 on max.userid = game_records.userid and max.game_level = game_records.game_level and status =1
 left JOIN users u ON game_records.userid = u.id
-order by game_level desc ,created_at limit 100;
+order by game_level desc ,created_at limit 50;
 `
 		dtos := []dto.RankDto{}
 		err := common.DB.Raw(sql).Scan(&dtos).Error
